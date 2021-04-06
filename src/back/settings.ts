@@ -75,7 +75,7 @@ export default class Settings {
     const entry = join(__dirname, '../front/settings/index.html')
     Settings.win.loadFile(entry)
 
-    if (DEV && false) {
+    if (DEV) {
       Settings.win.setSize(800, 485)
       Settings.win.setResizable(true)
       Settings.win.webContents.openDevTools()

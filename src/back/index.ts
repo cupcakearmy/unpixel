@@ -4,6 +4,7 @@ import logger from 'electron-log'
 import TrayUtility from './tray'
 import Settings from './settings'
 import Banner from './banner'
+import Updater from './updater'
 
 export const DEV = !app.isPackaged
 
@@ -21,6 +22,7 @@ app
     TrayUtility.init()
     Settings.init()
     Banner.init()
+    Updater.init()
     logger.log('Done')
   })
   .catch((e) => {
