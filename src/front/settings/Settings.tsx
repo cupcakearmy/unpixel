@@ -8,7 +8,7 @@ import Field from './Field'
 const Settings = () => {
   return (
     <div>
-      <h3 className="ma0 mb2">Settings</h3>
+      <h3 className="ma0 mv3">Settings</h3>
       <form>
         <fieldset className="ma0 pa0">
           <Field setting="every" />

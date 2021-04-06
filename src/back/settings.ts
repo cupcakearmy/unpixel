@@ -63,7 +63,7 @@ export default class Settings {
     if (this.win) return
     this.win = new BrowserWindow({
       width: 400,
-      height: 485,
+      height: 575,
       center: true,
       resizable: false,
       webPreferences: {
@@ -75,7 +75,7 @@ export default class Settings {
     const entry = join(__dirname, '../front/settings/index.html')
     Settings.win.loadFile(entry)
 
-    if (DEV) {
+    if (DEV && false) {
       Settings.win.setSize(800, 485)
       Settings.win.setResizable(true)
       Settings.win.webContents.openDevTools()
