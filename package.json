@@ -20,7 +20,7 @@
     "build": "run-s build:*",
     "pack": "electron-builder -mwl",
     "pack:dev": "electron-builder -m",
-    "dist": "rm -rf ./dist && run-s build pack"
+    "dist": "rm -rf .parcel-cache dist && run-s build pack"
   },
   "browserslist": [
     "last 2 Chrome versions"
