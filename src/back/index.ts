@@ -18,7 +18,7 @@ app
   .whenReady()
   .then(() => {
     logger.log('Initializing')
-    if (!DEV) app.dock.hide()
+    if (!DEV) app.dock?.hide()
     TrayUtility.init()
     Settings.init()
     Banner.init()
