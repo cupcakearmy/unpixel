@@ -8,6 +8,9 @@
     "email": "hi@nicco.io",
     "url": "https://nicco.io"
   },
+  "repository": {
+    "url": "https://github.com/cupcakearmy/unpixel"
+  },
   "version": "1.0.0",
   "main": "./dist/back/index.js",
   "scripts": {
