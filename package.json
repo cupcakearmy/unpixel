@@ -11,7 +11,7 @@
   "repository": {
     "url": "https://github.com/cupcakearmy/unpixel"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/back/index.js",
   "scripts": {
     "start": "electron .",
@@ -22,7 +22,6 @@
     "build:back": "parcel build --target back ./src/back/index.ts",
     "build": "run-s build:*",
     "pack": "electron-builder -mwl",
-    "pack:dev": "electron-builder -m",
     "dist": "rm -rf .parcel-cache dist && run-s build pack"
   },
   "browserslist": [
