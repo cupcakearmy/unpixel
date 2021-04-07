@@ -17,13 +17,15 @@ jobs:
       - run: yarn install --frozen-lockfile
       - name: Build
         run: yarn run dist
-      - run: ls out
-      - name: Create release
-        uses: softprops/action-gh-release@v0.1.5
-        with:
-          files: |
-            *.dmg
-            *.deb
-            *.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: ls out
+      # - name: Create release
+      #   uses: softprops/action-gh-release@v0.1.5
+      #   with:
+      #     files: |
+      #       *.dmg
+      #       *.deb
+      #       *.AppImage
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
