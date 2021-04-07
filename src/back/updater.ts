@@ -20,8 +20,9 @@ export default class Updater {
       url,
     })
     // parse tags and reverse sort them to get the highest
-    const tags = data.map((d) => semver.coerce(d.name)).sort(semver.rcompare)
+    const tags = data.map((d: any) => semver.coerce(d.name)).sort(semver.rcompare)
     const latest = tags[0]
+    if (!current) throw new Error('Could not determine current version')
     if (semver.lt(current, latest)) {
       logger.info('New version available')
       dialog

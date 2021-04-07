@@ -11,7 +11,7 @@
   "repository": {
     "url": "https://github.com/cupcakearmy/unpixel"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/back/index.js",
   "scripts": {
     "start": "electron .",
@@ -56,6 +56,7 @@
     "@types/auto-launch": "^5.0.1",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
+    "@types/semver": "^7.3.4",
     "electron": "^12.0.0",
     "electron-builder": "^22.10.5",
     "npm-run-all": "^4.1.5",

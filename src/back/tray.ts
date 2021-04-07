@@ -30,7 +30,7 @@ export default class TrayUtility {
 
   static setStatus(status: string) {
     this.menu[0].label = status
-    this.tray.setContextMenu(this.build())
+    this.tray?.setContextMenu(this.build())
   }
 
   private static build() {

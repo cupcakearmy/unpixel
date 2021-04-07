@@ -7,15 +7,17 @@ import { render } from 'react-dom'
 // @ts-ignore
 import chime from 'url:../assets/chime.mp3'
 
-const useKeyPress = (handler) => {
-  const handlerRef = useRef<(e: KeyboardEvent) => void>()
+const useKeyPress = (handler: (e: KeyboardEvent) => void) => {
+  const handlerRef = useRef<typeof handler>()
 
   useEffect(() => {
     handlerRef.current = handler
   }, [handler])
 
   useEffect(() => {
-    const fn = (event) => handlerRef.current(event)
+    const fn = (event: KeyboardEvent) => {
+      if (handlerRef.current) handlerRef.current(event)
+    }
     window.addEventListener('keydown', fn)
     return () => {
       window.removeEventListener('keydown', fn)

@@ -1,14 +1,19 @@
 appId: "io.nicco.app.unpixel"
-# productName: "UnPixel"
 files:
   - assets
   - dist
 directories:
   output: "./out"
 mac:
-  target: "dmg"
+  target:
+    - dmg
+    - zip
   identity: null
 win:
-  target: "nsis"
+  target: nsis
 linux:
   category: "Utility"
+  target:
+    - AppImage
+    - deb
+    - snap
