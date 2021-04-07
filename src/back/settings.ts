@@ -61,7 +61,7 @@ export default class Settings {
 
   static open() {
     if (this.win) return
-    this.win = new BrowserWindow({
+    Settings.win = new BrowserWindow({
       width: 400,
       height: 575,
       center: true,
@@ -74,6 +74,7 @@ export default class Settings {
 
     const entry = join(__dirname, '../front/settings/index.html')
     Settings.win.loadFile(entry)
+    Settings.win.setMenu(null)
 
     if (DEV) {
       Settings.win.setSize(800, 485)

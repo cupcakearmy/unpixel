@@ -6,13 +6,11 @@ import Settings from './settings'
 import Banner from './banner'
 import Updater from './updater'
 
-export const DEV = !app.isPackaged
+export const DEV = !app.isPackaged && false
 
 // Enforce single instance
 const isMain = app.requestSingleInstanceLock()
-if (!isMain) {
-  app.quit()
-}
+if (!isMain) app.quit()
 
 // Disable gpu
 app.disableHardwareAcceleration()

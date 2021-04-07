@@ -1,6 +1,7 @@
-import dayjs from 'dayjs'
-import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
 import { join } from 'path'
+import os from 'os'
+import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
+import dayjs from 'dayjs'
 import logger from 'electron-log'
 
 import { DEV } from '.'
@@ -48,30 +49,33 @@ export default class Banner {
       },
       width: 1200,
       height: 600,
-    }
-    if (!DEV) {
-      Object.assign(options, {
-        resizable: false,
-        movable: false,
-        simpleFullscreen: true,
-        fullscreen: true,
-        transparent: true,
-      })
+      fullscreen: !DEV,
     }
     this.window = new BrowserWindow(options)
 
     const entry = join(__dirname, '../front/banner/index.html')
     this.window.loadFile(entry)
 
-    if (!DEV) {
-      this.window.maximize()
+    if (DEV) {
+      this.window.webContents.toggleDevTools()
+    } else {
+      switch (os.platform()) {
+        case 'win32':
+          break
+        case 'linux':
+          break
+        case 'darwin':
+          this.window.setSimpleFullScreen(true)
+          this.window.setFullScreenable(false)
+          break
+      }
+      // this.window.maximize()
       this.window.setAlwaysOnTop(true, 'floating', 99)
       this.window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-      this.window.setFullScreenable(false)
-    } else {
-      this.window.webContents.toggleDevTools()
+      this.window.setMovable(false)
+      this.window.setResizable(false)
+      this.window.focus()
     }
-    this.window.focus()
   }
 
   static close() {
