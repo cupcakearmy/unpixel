@@ -17,3 +17,7 @@ This is not medical advice. Read more [here](https://en.wikipedia.org/wiki/Compu
 ## 📦 Install
 
 Head to the [release page](https://github.com/cupcakearmy/unpixel/releases) and grab the latest for your platform.
+
+- For `macOS` you can downlaod the `.dmg` image.
+- For `Windows` download the `.exe`.
+- For `Linux` either the `.AppImage` or `.deb`, you will know what fits you 😉.
