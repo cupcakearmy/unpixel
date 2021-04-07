@@ -8,6 +8,12 @@ import Updater from './updater'
 
 export const DEV = !app.isPackaged
 
+// Enforce single instance
+const isMain = app.requestSingleInstanceLock()
+if (!isMain) {
+  app.quit()
+}
+
 // Disable gpu
 app.disableHardwareAcceleration()
 app.commandLine.appendSwitch('disable-software-rasterizer')
