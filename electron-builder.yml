@@ -7,13 +7,12 @@ directories:
 mac:
   target:
     - dmg
-    - zip
   identity: null
 win:
-  target: nsis
+  target: 
+    - nsis
 linux:
   category: "Utility"
   target:
     - AppImage
     - deb
-    - snap

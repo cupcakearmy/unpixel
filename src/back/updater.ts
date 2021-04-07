@@ -7,7 +7,7 @@ import pkg from '../../package.json'
 
 const current = semver.coerce(pkg.version)
 const url = 'https://api.github.com/repos/cupcakearmy/unpixel/tags'
-const interval = 1000 * 60 * 60 * 10 // 10 Minutes
+const interval = 1000 * 60 * 15 // 10 Minutes
 
 export default class Updater {
   static init() {
