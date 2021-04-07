@@ -2,8 +2,10 @@ name: Main
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    # tags:
+    #   - 'v*.*.*'
+    branches:
+      - main
 
 jobs:
   build:
