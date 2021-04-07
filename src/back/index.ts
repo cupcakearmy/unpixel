@@ -6,7 +6,7 @@ import Settings from './settings'
 import Banner from './banner'
 import Updater from './updater'
 
-export const DEV = !app.isPackaged && false
+export const DEV = !app.isPackaged
 
 // Enforce single instance
 const isMain = app.requestSingleInstanceLock()
