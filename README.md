@@ -29,3 +29,9 @@ Head to the [release page](https://github.com/cupcakearmy/unpixel/releases) and 
 3. `yarn dist` to build for all platforms
 
 Alternatevly you can run `yarn build` and the `yarn electron-builder -m` for `macOS`, `-l` fir `linux` or `-w` for `windows`.
+
+## RELEASE
+
+1. Create a draft release with the new version. (e.g. tag with `v1.2.3`).
+2. Push to master and github workflow will build and upload assets to the draft matching the version of `package.json` and draft.
+3. When ready publish release.

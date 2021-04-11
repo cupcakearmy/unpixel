@@ -49,7 +49,8 @@ export default class Banner {
       },
       width: 1200,
       height: 600,
-      fullscreen: !DEV,
+      fullscreen: true,
+      simpleFullscreen: os.platform() === 'darwin',
     }
     this.window = new BrowserWindow(options)
 
@@ -59,17 +60,6 @@ export default class Banner {
     if (DEV) {
       this.window.webContents.toggleDevTools()
     } else {
-      switch (os.platform()) {
-        case 'win32':
-          break
-        case 'linux':
-          break
-        case 'darwin':
-          this.window.setSimpleFullScreen(true)
-          this.window.setFullScreenable(false)
-          break
-      }
-      // this.window.maximize()
       this.window.setAlwaysOnTop(true, 'floating', 99)
       this.window.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
       this.window.setMovable(false)
