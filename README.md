@@ -33,6 +33,6 @@ Alternatively you can run `yarn build` and the `yarn electron-builder -m` for `m
 ## 📦 Release
 
 1. Bump version in `package.json`
-2. Create a draft release with the new version. (e.g. tag with `v1.2.3`).
-3. Push to master and github workflow will build and upload assets to the draft matching the version of `package.json` and draft.
-4. When ready publish release.
+2. Update `CHANGELOG.md`
+3. Create a draft release with the new version. (e.g. tag with `v1.2.3`).
+4. Push to `main` and github workflow will build and upload assets to the draft matching the version of `package.json` and draft.
