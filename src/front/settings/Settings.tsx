@@ -12,6 +12,7 @@ const Settings = () => {
         <fieldset className="ma0 pa0">
           <Field setting="every" />
           <Field setting="duration" />
+          <Field setting="volume" />
           <Field setting="autoClose" />
           <Field setting="boot" />
         </fieldset>

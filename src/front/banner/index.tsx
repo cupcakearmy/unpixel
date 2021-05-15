@@ -1,5 +1,3 @@
-console.log('test')
-
 import { ipcRenderer } from 'electron'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { render } from 'react-dom'
@@ -52,6 +50,8 @@ const Banner: React.FC = () => {
       setTimeout(() => setCountdown(countdown - 1), 1000)
     } else {
       const audio = new Audio(chime)
+      const volume = ipcRenderer.sendSync('load', { key: 'volume' })
+      audio.volume = volume / 100
       audio.play()
       setDone(true)
     }

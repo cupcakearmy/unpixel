@@ -8,7 +8,6 @@ import { productName } from '../../package.json'
 const autoLaunch = new AutoLaunch({ name: productName, mac: { useLaunchAgent: true } })
 
 import { DEV } from '.'
-import ms from 'ms'
 import dayjs from 'dayjs'
 
 const store = new Store()
@@ -19,6 +18,7 @@ const defaults = {
   paused: 0,
   lastRun: 0,
   autoClose: false,
+  volume: 100,
 }
 export type SettingKeys = keyof typeof defaults
 const IntNormalizer = (x: any) => parseInt(x)
@@ -30,6 +30,7 @@ const normalizers: Record<SettingKeys, (x: any) => any> = {
   autoClose: BoolNormalizer,
   paused: IntNormalizer,
   lastRun: IntNormalizer,
+  volume: IntNormalizer,
 }
 
 export default class Settings {
@@ -65,7 +66,7 @@ export default class Settings {
     if (this.win) return
     Settings.win = new BrowserWindow({
       width: 400,
-      height: 575,
+      height: 630,
       center: true,
       resizable: false,
       webPreferences: {

@@ -6,6 +6,18 @@ const labels = {
   duration: ['For', 'seconds'],
   boot: ['Start on boot'],
   autoClose: ['Close window after countdown'],
+  volume: ['Chime Volume'],
+}
+
+const ranges: Partial<Record<keyof typeof labels, [number, number]>> = {
+  every: [1, 60],
+  duration: [1, 60],
+  volume: [0, 100],
+}
+
+function getRange(key: keyof typeof labels): [number, number] {
+  const range = ranges[key]
+  return range || [0, 0]
 }
 
 const Field: React.FC<{ setting: keyof typeof labels }> = ({ setting: key }) => {
@@ -39,8 +51,8 @@ const Field: React.FC<{ setting: keyof typeof labels }> = ({ setting: key }) => 
             className="mt0 mb3"
             type="range"
             id={key}
-            min="1"
-            max="60"
+            min={getRange(key)[0]}
+            max={getRange(key)[1]}
             step="1"
             value={value}
             onChange={(e) => setValue(parseInt(e.target.value))}
