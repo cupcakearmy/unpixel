@@ -22,6 +22,7 @@
     "build:back": "parcel build --target back ./src/back/index.ts",
     "build": "run-s build:*",
     "pack": "electron-builder -mwl",
+    "pack:dev": "electron-builder -m dir && open ./out/mac/UnPixel.app",
     "dist": "rm -rf .parcel-cache dist && run-s build pack"
   },
   "browserslist": [
