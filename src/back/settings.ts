@@ -8,13 +8,15 @@ import { productName } from '../../package.json'
 const autoLaunch = new AutoLaunch({ name: productName, mac: { useLaunchAgent: true } })
 
 import { DEV } from '.'
+import ms from 'ms'
+import dayjs from 'dayjs'
 
 const store = new Store()
 const defaults = {
   every: 20,
   duration: 20,
   boot: true,
-  paused: false,
+  paused: 0,
   lastRun: 0,
   autoClose: false,
 }
@@ -26,7 +28,7 @@ const normalizers: Record<SettingKeys, (x: any) => any> = {
   duration: IntNormalizer,
   boot: BoolNormalizer,
   autoClose: BoolNormalizer,
-  paused: BoolNormalizer,
+  paused: IntNormalizer,
   lastRun: IntNormalizer,
 }
 
@@ -81,5 +83,18 @@ export default class Settings {
       Settings.win.setResizable(true)
       Settings.win.webContents.openDevTools()
     }
+  }
+
+  static getStatus(): [boolean, number] {
+    const paused: number = Settings.load('paused')
+    const now = Date.now()
+    if (paused > now) {
+      return [true, paused - now]
+    }
+
+    const every = Settings.load('every')
+    const lastRun = Settings.load('lastRun')
+    const diff = every * 60 * 1000 - dayjs(now).diff(dayjs(lastRun), 'ms')
+    return [false, diff]
   }
 }

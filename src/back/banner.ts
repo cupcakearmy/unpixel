@@ -3,6 +3,7 @@ import os from 'os'
 import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
 import dayjs from 'dayjs'
 import logger from 'electron-log'
+import ms from 'ms'
 
 import { DEV } from '.'
 import Settings from './settings'
@@ -15,24 +16,16 @@ export default class Banner {
   static init() {
     if (this.interval) return
     this.interval = setInterval(this.check, 1000)
+    this.check()
     ipcMain.on('close', () => {
       this.close()
     })
   }
 
   static check() {
-    const paused: boolean = Settings.load('paused')
-    if (paused) {
-      TrayUtility.setStatus('Paused')
-      return
-    }
-
-    const every = Settings.load('every')
-    const now = dayjs()
-    const lastRun = Settings.load('lastRun')
-    const diff = every - now.diff(dayjs(lastRun), 'minutes')
-    TrayUtility.setStatus(`Next break: ${diff}m`)
-    if (diff < 1) {
+    TrayUtility.build()
+    const [paused, interval] = Settings.getStatus()
+    if (!paused && interval < 1000) {
       Banner.open()
     }
   }

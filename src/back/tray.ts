@@ -1,53 +1,61 @@
 import { Tray, Menu, nativeImage } from 'electron'
 import path from 'path'
+import ms from 'ms'
 
 import Banner from './banner'
 import Settings from './settings'
 
-enum Items {
-  Status = 'status',
-  Pause = 'pause',
-  Run = 'run',
-}
-
 export default class TrayUtility {
-  static menu: Parameters<typeof Menu['buildFromTemplate']>[0] = [
-    { label: 'Status', type: 'normal', enabled: false, id: Items.Status },
-    { type: 'separator' },
-    {
-      label: 'Take a break now',
-      type: 'normal',
-      id: Items.Run,
-      click: () => Banner.open(),
-    },
-    { label: 'Pause', type: 'checkbox', id: Items.Pause },
-    { label: 'Settings', type: 'normal', click: () => Settings.open() },
-    { type: 'separator' },
-    { label: 'Quit', type: 'normal', role: 'quit' },
-  ]
-
   static tray: Tray | null = null
 
-  static setStatus(status: string) {
-    this.menu[0].label = status
-    this.tray?.setContextMenu(this.build())
-  }
+  static build() {
+    const [paused, interval] = Settings.getStatus()
+    const status = paused ? `Paused for: ${ms(interval)}` : `Next break: ${ms(interval)}`
 
-  private static build() {
-    const menu = Menu.buildFromTemplate(this.menu)
-    for (const item of menu.items) {
-      if (item.id === Items.Pause) {
-        let initial = Settings.load('paused')
-        item.checked = initial
-        item.click = () => {
-          initial = !initial
-          item.checked = initial
-          Settings.save('paused', initial)
-        }
-        break
-      }
-    }
-    return menu
+    const template: Parameters<typeof Menu['buildFromTemplate']>[0] = [
+      { label: status, type: 'normal', enabled: false },
+      { type: 'separator' },
+      {
+        label: 'Take a break now',
+        type: 'normal',
+        click: () => Banner.open(),
+      },
+    ]
+
+    template.push(
+      paused
+        ? {
+            label: 'Break pause',
+            click: () => {
+              Settings.save('paused', 0)
+              this.build()
+            },
+          }
+        : {
+            label: 'Pause for...',
+            submenu: Menu.buildFromTemplate(
+              // Minutes to pause
+              [10, 30, 60, 120, 360]
+                .map((minutes) => minutes * 60 * 1000)
+                .map((time) => ({
+                  label: ms(time),
+                  click: () => {
+                    Settings.save('paused', Date.now() + time)
+                    this.build()
+                  },
+                }))
+            ),
+          }
+    )
+
+    template.push(
+      { label: 'Settings', click: () => Settings.open() },
+      { type: 'separator' },
+      { label: 'Quit', role: 'quit' }
+    )
+
+    const menu = Menu.buildFromTemplate(template)
+    this.tray?.setContextMenu(menu)
   }
 
   static init() {
@@ -58,7 +66,7 @@ export default class TrayUtility {
         height: 24,
       })
       this.tray = new Tray(icon)
-      this.tray.setContextMenu(this.build())
+      this.build()
     }
   }
 }
