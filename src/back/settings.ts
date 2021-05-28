@@ -64,7 +64,7 @@ export default class Settings {
 
   static open() {
     if (this.win) return
-    Settings.win = new BrowserWindow({
+    this.win = new BrowserWindow({
       width: 400,
       height: 630,
       center: true,
@@ -74,20 +74,21 @@ export default class Settings {
         contextIsolation: false,
       },
     })
+    this.win.on('closed', () => (this.win = null))
 
     const entry = join(__dirname, '../front/settings/index.html')
-    Settings.win.loadFile(entry)
-    Settings.win.setMenu(null)
+    this.win.loadFile(entry)
+    this.win.setMenu(null)
 
     if (DEV) {
-      Settings.win.setSize(800, 485)
-      Settings.win.setResizable(true)
-      Settings.win.webContents.openDevTools()
+      this.win.setSize(800, 485)
+      this.win.setResizable(true)
+      this.win.webContents.openDevTools()
     }
   }
 
   static getStatus(): [boolean, number] {
-    const paused: number = Settings.load('paused')
+    const paused: number = this.load('paused')
     const now = Date.now()
     if (paused > now) {
       return [true, paused - now]
