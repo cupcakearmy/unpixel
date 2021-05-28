@@ -1,6 +1,6 @@
 import { join } from 'path'
 import os from 'os'
-import { BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
+import { app, BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
 import dayjs from 'dayjs'
 import logger from 'electron-log'
 import ms from 'ms'
@@ -64,6 +64,9 @@ export default class Banner {
   static close() {
     if (this.window) {
       Settings.save('lastRun', Date.now())
+      this.window.minimize()
+      this.window.hide()
+      if (process.platform === 'darwin') app.hide()
       this.window.close()
       this.window = null
     }

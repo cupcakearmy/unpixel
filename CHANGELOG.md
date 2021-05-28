@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Restore focus to previous window when closing banner
 - Responsive image
 
 ### Fixed
