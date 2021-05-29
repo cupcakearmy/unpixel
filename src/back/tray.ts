@@ -60,11 +60,11 @@ export default class TrayUtility {
 
   static init() {
     if (!this.tray) {
-      const file = path.join(__dirname, '../../assets/tray.png')
-      const resized = nativeImage.createFromPath(file).resize({ width: 24, height: 24 })
-      resized.setTemplateImage(true)
-      resized.isMacTemplateImage = true
-      this.tray = new Tray(resized)
+      const file = path.join(__dirname, '../../assets/trayTemplate.png')
+      // const resized = nativeImage.createFromPath(file).resize({ width: 24, height: 24 })
+      // resized.setTemplateImage(true)
+      // resized.isMacTemplateImage = true
+      this.tray = new Tray(file)
       this.build()
     }
   }
