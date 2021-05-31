@@ -4,6 +4,7 @@ import logger from 'electron-log'
 import { dialog, shell } from 'electron'
 
 import pkg from '../../package.json'
+import Banner from './banner'
 
 const current = semver.coerce(pkg.version)
 const url = 'https://api.github.com/repos/cupcakearmy/unpixel/tags'
@@ -25,7 +26,9 @@ export default class Updater {
     if (!current) throw new Error('Could not determine current version')
     if (semver.lt(current, latest)) {
       logger.info('New version available')
+      Banner.close()
       dialog
+        // @ts-ignore
         .showMessageBox(null, {
           title: 'Update available',
           message: 'A newer version is available, please download.',
