@@ -30,6 +30,8 @@ const Banner: React.FC = () => {
 
   const [done, setDone] = useState(false)
   const [auto, setAuto] = useState(false)
+  const [progress, setProgress] = useState(100)
+  const [max, setMax] = useState(0)
   const [countdown, setCountdown] = useState<null | number>(null)
 
   const handler = useCallback(
@@ -58,15 +60,25 @@ const Banner: React.FC = () => {
   }, [countdown])
 
   useEffect(() => {
+    if (countdown !== null) {
+      setProgress((countdown / max) * 100)
+    }
+  }, [countdown, max])
+
+  useEffect(() => {
     const autoClose = ipcRenderer.sendSync('load', { key: 'autoClose' })
     setAuto(autoClose)
     const time = ipcRenderer.sendSync('load', { key: 'duration' })
     setCountdown(time)
+    setMax(time)
   }, [])
 
   return (
     <div>
-      <h1 className="ma0 mb4">Look Away</h1>
+      <h1 className="ma0 mb3">Look Away</h1>
+      <div className="progress mb4">
+        <div style={{ width: progress.toFixed(2) + '%' }} />
+      </div>
       <div className="code countdown">{countdown}</div>
       <div className="tile message">
         Look at least <b>6 meters</b> away. <br />

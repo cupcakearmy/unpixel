@@ -38,7 +38,6 @@ export default class Updater {
         .then(({ response }) => {
           if (response === 0) {
             shell.openExternal('https://github.com/cupcakearmy/unpixel/releases')
-            process.exit(0)
           }
         })
     } else {
