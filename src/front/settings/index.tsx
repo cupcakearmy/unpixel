@@ -1,8 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import '../base.css'
-
 import About from './About'
 import Settings from './Settings'
 import Footer from './Footer'
