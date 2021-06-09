@@ -4,13 +4,15 @@ import ms from 'ms'
 
 import Banner from './banner'
 import Settings from './settings'
+import { InputDevicesStatus } from './utils'
 
 export default class TrayUtility {
   static tray: Tray | null = null
 
   static build() {
     const [paused, interval] = Settings.getStatus()
-    const status = paused ? `Paused for: ${ms(interval)}` : `Next break: ${ms(interval)}`
+    let status = paused ? `Paused for: ${ms(interval)}` : `Next break: ${ms(interval)}`
+    if (InputDevicesStatus.areCameraOrMicrophoneActive()) status = `Paused: Mic/Camera Active`
 
     const template: Parameters<typeof Menu['buildFromTemplate']>[0] = [
       { label: status, type: 'normal', enabled: false },
