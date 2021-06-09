@@ -1,7 +1,5 @@
 import React from 'react'
 
-import '../base.css'
-
 import Field from './Field'
 
 const Settings = () => {
@@ -15,6 +13,10 @@ const Settings = () => {
           <Field setting="volume" />
           <Field setting="autoClose" />
           <Field setting="boot" />
+          <Field setting="skipOnCameraOrMic" />
+          <small className="ml4" style={{ position: 'relative', top: '-0.5em' }}>
+            only on <i>macOS</i>
+          </small>
         </fieldset>
       </form>
     </div>
