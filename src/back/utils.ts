@@ -32,17 +32,17 @@ export class InputDevicesStatus {
 
   static update() {
     // TODO: Update electron version as soon as issue is resolved https://github.com/electron/electron/issues/26143
-    isMicrophoneActive().then((result) => (this.status.mic = result))
-    isCameraActive().then((result) => (this.status.camera = result))
+    isMicrophoneActive().then((result) => (InputDevicesStatus.status.mic = result))
+    isCameraActive().then((result) => (InputDevicesStatus.status.camera = result))
   }
 
   static init() {
-    setInterval(this.update, 3000)
+    setInterval(InputDevicesStatus.update, 2000)
   }
 
   static areCameraOrMicrophoneActive(): boolean {
     if (Settings.load('skipOnCameraOrMic')) {
-      return this.status.mic || this.status.camera
+      return InputDevicesStatus.status.mic || InputDevicesStatus.status.camera
     }
     return false
   }
