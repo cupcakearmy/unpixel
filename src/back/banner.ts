@@ -1,13 +1,11 @@
 import { join } from 'path'
 import os from 'os'
 import { app, BrowserWindow, BrowserWindowConstructorOptions, ipcMain } from 'electron'
-import dayjs from 'dayjs'
-import logger from 'electron-log'
-import ms from 'ms'
 
 import { DEV } from '.'
 import Settings from './settings'
 import TrayUtility from './tray'
+import { InputDevicesStatus } from './utils'
 
 export default class Banner {
   static interval: ReturnType<typeof setInterval>
@@ -22,18 +20,21 @@ export default class Banner {
     })
   }
 
+  static shouldShow(): boolean {
+    const [paused, interval] = Settings.getStatus()
+    if (paused || interval > 1000) return false
+    if (InputDevicesStatus.areCameraOrMicrophoneActive()) return true
+    return true
+  }
+
   static check() {
     TrayUtility.build()
-    const [paused, interval] = Settings.getStatus()
-    if (!paused && interval < 1000) {
-      Banner.open()
-    }
+    if (Banner.shouldShow()) Banner.open()
   }
 
   static open() {
     if (this.window) return
 
-    logger.debug('Showing banner')
     const options: BrowserWindowConstructorOptions = {
       frame: false,
       webPreferences: {
