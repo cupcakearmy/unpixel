@@ -1,28 +1,25 @@
 import cp from 'child_process'
+import { promisify } from 'util'
 
 import Settings from './settings'
 
+const exec = promisify(cp.exec)
+
 export async function isCameraActive(): Promise<boolean> {
   if (process.platform === 'darwin') {
-    return new Promise((resolve) => {
-      // Check number of processes using the camera
-      cp.exec(`lsof -n | grep "AppleCamera"`, (_, out) => {
-        const processesUsingCamera = out.trim().split('\n').length
-        resolve(processesUsingCamera > 1) // One is the apple daemon that is always active
-      })
-    })
+    // Check number of processes using the camera
+    const out = await exec(`lsof -n | grep "AppleCamera"`)
+    const processesUsingCamera = out.stdout.trim().split('\n').length
+    return processesUsingCamera > 1 // One is the apple daemon that is always active
   }
   return false
 }
 
 export async function isMicrophoneActive(): Promise<boolean> {
   if (process.platform === 'darwin') {
-    return new Promise((resolve) => {
-      cp.exec(`ioreg -c AppleHDAEngineInput | grep IOAudioEngineState`, (_, out) => {
-        const parsed = parseInt(out.trim().replace(/[^\d]/gim, ''))
-        resolve(parsed > 0)
-      })
-    })
+    const out = await exec(`ioreg -c AppleHDAEngineInput | grep "IOAudioEngineState"`)
+    const parsed = parseInt(out.stdout.trim().replace(/[^\d]/gim, ''))
+    return parsed > 0
   }
   return false
 }
@@ -33,11 +30,14 @@ export class InputDevicesStatus {
     camera: false,
   }
 
+  static update() {
+    // TODO: Update electron version as soon as issue is resolved https://github.com/electron/electron/issues/26143
+    isMicrophoneActive().then((result) => (this.status.mic = result))
+    isCameraActive().then((result) => (this.status.camera = result))
+  }
+
   static init() {
-    setInterval(() => {
-      isMicrophoneActive().then((result) => (this.status.mic = result))
-      isCameraActive().then((result) => (this.status.camera = result))
-    }, 2000)
+    setInterval(this.update, 3000)
   }
 
   static areCameraOrMicrophoneActive(): boolean {

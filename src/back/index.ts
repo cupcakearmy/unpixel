@@ -5,6 +5,7 @@ import TrayUtility from './tray'
 import Settings from './settings'
 import Banner from './banner'
 import Updater from './updater'
+import { InputDevicesStatus } from './utils'
 
 export const DEV = !app.isPackaged
 
@@ -27,6 +28,7 @@ app
     Settings.init()
     Banner.init()
     Updater.init()
+    InputDevicesStatus.init()
     logger.log('Done')
   })
   .catch((e) => {
