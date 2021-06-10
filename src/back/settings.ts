@@ -68,7 +68,7 @@ export default class Settings {
     if (this.win) return
     this.win = new BrowserWindow({
       width: 400,
-      height: 670,
+      height: 690,
       center: true,
       resizable: false,
       webPreferences: {
