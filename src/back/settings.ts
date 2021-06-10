@@ -19,6 +19,7 @@ const defaults = {
   lastRun: 0,
   autoClose: false,
   volume: 100,
+  skipOnCameraOrMic: true,
 }
 export type SettingKeys = keyof typeof defaults
 const IntNormalizer = (x: any) => parseInt(x)
@@ -31,6 +32,7 @@ const normalizers: Record<SettingKeys, (x: any) => any> = {
   paused: IntNormalizer,
   lastRun: IntNormalizer,
   volume: IntNormalizer,
+  skipOnCameraOrMic: BoolNormalizer,
 }
 
 export default class Settings {
@@ -66,7 +68,7 @@ export default class Settings {
     if (this.win) return
     this.win = new BrowserWindow({
       width: 400,
-      height: 630,
+      height: 670,
       center: true,
       resizable: false,
       webPreferences: {
