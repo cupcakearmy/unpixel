@@ -23,7 +23,7 @@ export default class Banner {
   static shouldShow(): boolean {
     const [paused, interval] = Settings.getStatus()
     if (paused || interval > 1000) return false
-    if (InputDevicesStatus.areCameraOrMicrophoneActive()) return true
+    if (InputDevicesStatus.areCameraOrMicrophoneActive()) return false
     return true
   }
 
