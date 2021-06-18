@@ -7,7 +7,7 @@ const labels = {
   boot: ['Start on boot'],
   autoClose: ['Close window after countdown'],
   volume: ['Chime Volume'],
-  skipOnCameraOrMic: ['Pause when Mic or Camera are active'],
+  skipOnCameraOrMic: ['Pause when Mic is active'],
 }
 
 const ranges: Partial<Record<keyof typeof labels, [number, number]>> = {

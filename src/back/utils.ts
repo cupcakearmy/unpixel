@@ -6,6 +6,7 @@ import Settings from './settings'
 const exec = promisify(cp.exec)
 
 export async function isCameraActive(): Promise<boolean> {
+  // Not reliable
   if (process.platform === 'darwin') {
     // Check number of processes using the camera
     const out = await exec(`lsof -n | grep "AppleCamera"`)
@@ -42,7 +43,7 @@ export class InputDevicesStatus {
 
   static areCameraOrMicrophoneActive(): boolean {
     if (Settings.load('skipOnCameraOrMic')) {
-      return InputDevicesStatus.status.mic || InputDevicesStatus.status.camera
+      return InputDevicesStatus.status.mic
     }
     return false
   }

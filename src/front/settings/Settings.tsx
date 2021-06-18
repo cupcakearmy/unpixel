@@ -15,7 +15,7 @@ const Settings = () => {
           <Field setting="boot" />
           <Field setting="skipOnCameraOrMic" />
           <small className="ml4" style={{ position: 'relative', top: '-0.5em' }}>
-            only on <i>macOS</i>
+            experimental & only on <i>macOS</i>
           </small>
         </fieldset>
       </form>
