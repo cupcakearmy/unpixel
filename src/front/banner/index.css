@@ -1,4 +1,4 @@
-@import 'tachyons/css/tachyons.css';
+@import '../../../node_modules/tachyons/css/tachyons.css';
 
 body {
   background-color: #111;
