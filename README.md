@@ -25,10 +25,10 @@ Head to the [release page](https://github.com/cupcakearmy/unpixel/releases) and 
 ## 🛠 Building / Development
 
 1. Clone the repo
-2. `yarn install`
-3. `yarn dist` to build for all platforms
+2. `pnpm install`
+3. `pnpm dist` to build for all platforms
 
-Alternatively you can run `yarn build` and the `yarn electron-builder -m` for `macOS`, `-l` fir `linux` or `-w` for `windows`.
+Alternatively you can run `pnpm build` and the `pnpm electron-builder -m` for `macOS`, `-l` fir `linux` or `-w` for `windows`.
 
 ## 📦 Release
 

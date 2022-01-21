@@ -10,8 +10,10 @@ import { InputDevicesStatus } from './utils'
 export const DEV = !app.isPackaged
 
 // Enforce single instance
-const isMain = app.requestSingleInstanceLock()
-if (!isMain) app.quit()
+if (!app.requestSingleInstanceLock()) {
+  logger.warn('Another instance is already running. Exiting.')
+  app.quit()
+}
 
 // Disable gpu
 app.disableHardwareAcceleration()
